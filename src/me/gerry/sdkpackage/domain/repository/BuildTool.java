@@ -1,7 +1,9 @@
 package me.gerry.sdkpackage.domain.repository;
 
 import me.gerry.sdkpackage.domain.SdkResourceEntity;
-
+/**
+ * Tools 下的 Android SDK Build-tools
+ */
 public class BuildTool extends SdkResourceEntity {
 
     public BuildTool() {

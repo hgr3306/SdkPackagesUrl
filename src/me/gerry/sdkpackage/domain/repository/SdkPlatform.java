@@ -1,14 +1,14 @@
 package me.gerry.sdkpackage.domain.repository;
 
-import me.gerry.sdkpackage.domain.AndroidPlatformResource;
+import me.gerry.sdkpackage.domain.AndroidPlatformResourceEntity;
 
 /**
- * SDK Platform ×ÊÔ´µÄÏà¹ØĞÅÏ¢
+ * Android x.x.x (APIxx) ä¸‹çš„ SDK Platform 
  * 
  * @author Guorui
  *
  */
-public class SdkPlatform extends AndroidPlatformResource {
+public class SdkPlatform extends AndroidPlatformResourceEntity {
     private String mVersion;
     private String mDescription;
 
@@ -20,38 +20,38 @@ public class SdkPlatform extends AndroidPlatformResource {
     }
 
     /**
-     * »ñÈ¡¸Ã×ÊÔ´ÊÊÓÃAndroidÆ½Ì¨µÄ°æ±¾ºÅ
+     * è·å–è¯¥èµ„æºé€‚ç”¨Androidå¹³å°çš„ç‰ˆæœ¬å·
      * 
-     * @return ±íÊ¾AndroidÆ½Ì¨°æ±¾ºÅµÄ×Ö·û´®£¬Èç2.3,4.0
+     * @return è¡¨ç¤ºAndroidå¹³å°ç‰ˆæœ¬å·çš„å­—ç¬¦ä¸²ï¼Œå¦‚2.3,4.0
      */
     public String getVersion() {
         return this.mVersion;
     }
 
     /**
-     * ÉèÖÃ¸Ã×ÊÔ´ÊÊÓÃAndroidÆ½Ì¨µÄ°æ±¾ºÅ
+     * è®¾ç½®è¯¥èµ„æºé€‚ç”¨Androidå¹³å°çš„ç‰ˆæœ¬å·
      * 
      * @param version
-     *            ±íÊ¾AndroidÆ½Ì¨°æ±¾ºÅµÄ×Ö·û´®£¬Èç2.3,4.0
+     *            è¡¨ç¤ºAndroidå¹³å°ç‰ˆæœ¬å·çš„å­—ç¬¦ä¸²ï¼Œå¦‚2.3,4.0
      */
     public void setVersion(String version) {
         this.mVersion = version;
     }
 
     /**
-     * »ñÈ¡¶Ô¸Ã×ÊÔ´µÄÃèÊö
+     * è·å–å¯¹è¯¥èµ„æºçš„æè¿°
      * 
-     * @return ÃèÊöĞÅÏ¢
+     * @return æè¿°ä¿¡æ¯
      */
     public String getDescription() {
         return this.mDescription;
     }
 
     /**
-     * ¶Ô¸Ã×ÊÔ´½øĞĞÃèÊö
+     * å¯¹è¯¥èµ„æºè¿›è¡Œæè¿°
      * 
      * @param description
-     *            ÃèÊöĞÅÏ¢
+     *            æè¿°ä¿¡æ¯
      */
     public void setDescription(String description) {
         this.mDescription = description;

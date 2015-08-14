@@ -1,52 +1,35 @@
 package me.gerry.sdkpackage.domain;
 
-public class AndroidPlatformResource extends SdkResourceEntity {
-
-    private String mApiLevel;
-    private String mCodeName;
-
-    public AndroidPlatformResource() {
-        super();
-        this.mApiLevel = "0";
-        this.mCodeName = "";
-    }
+public interface AndroidPlatformResource extends SdkResource {
 
     /**
-     * 获取该资源适用API Level
+     * 鑾峰彇璇ヨ祫婧愰�傜敤API Level
      * 
-     * @return 表示API Level的字符串，如10,22
+     * @return 琛ㄧずAPI Level鐨勫瓧绗︿覆锛屽10,22
      */
-    public String getApiLevel() {
-        return this.mApiLevel;
-    }
+    public String getApiLevel();
 
     /**
-     * 设置该资源适用API Level
+     * 璁剧疆璇ヨ祫婧愰�傜敤API Level
      * 
      * @param apiLevel
-     *            表示API Level的字符串，如10,22
+     *            琛ㄧずAPI Level鐨勫瓧绗︿覆锛屽10,22
      */
-    public void setApiLevel(String apiLevel) {
-        this.mApiLevel = apiLevel;
-    }
+    public void setApiLevel(String apiLevel);
 
     /**
-     * 获取预览版本名称
+     * 鑾峰彇棰勮鐗堟湰鍚嶇О
      * 
-     * @return 预览版本名称
+     * @return 棰勮鐗堟湰鍚嶇О
      */
-    public String getCodeName() {
-        return this.mCodeName;
-    }
+    public String getCodeName();
 
     /**
-     * 设置预览版本名称
+     * 璁剧疆棰勮鐗堟湰鍚嶇О
      * 
      * @param codeName
-     *            预览版本名称
+     *            棰勮鐗堟湰鍚嶇О
      */
-    public void setCodeName(String codeName) {
-        this.mCodeName = codeName;
-    }
+    public void setCodeName(String codeName);
 
 }

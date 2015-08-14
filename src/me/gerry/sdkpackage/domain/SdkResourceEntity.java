@@ -3,10 +3,18 @@ package me.gerry.sdkpackage.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SdkResourceEntity {
+import me.gerry.sdkpackage.util.LogPrinter;
+
+/**
+ * æ‰€æœ‰SDKèµ„æºçš„å…¬å…±çˆ¶ç±»ï¼Œæä¾›èµ„æºçš„ç±»å‹ï¼Œç‰ˆæœ¬ï¼Œèµ„æºåŒ…ä¿¡æ¯ï¼Œæ˜¯å¦å·²ç»è¿‡æ—¶ç­‰ä¿¡æ¯ã€‚
+ * 
+ * @author Gerry
+ *
+ */
+public class SdkResourceEntity implements SdkResource {
 
     /**
-     * Î´ÖªÀàĞÍ
+     * æœªçŸ¥ç±»å‹
      */
     public static final String RESOURCE_TYPE_DK           = "Unknown Resource Type";
     /**
@@ -38,9 +46,21 @@ public class SdkResourceEntity {
      */
     public static final String RESOURCE_TYPE_SDKSOURCE    = "Sources for Android SDK";
 
+    /**
+     * SDKèµ„æºçš„ç‰ˆæœ¬å·ã€‚
+     */
     private String             mRevision;
+    /**
+     * SDKèµ„æºçš„èµ„æºåŒ…çš„ä¿¡æ¯ã€‚
+     */
     private List<Archive>      mArchives;
+    /**
+     * SDKèµ„æºæ˜¯å¦å·²ç»è¿‡æ—¶ã€‚
+     */
     private boolean            mIsObsolete;
+    /**
+     * SDKèµ„æºçš„ç±»å‹ã€‚
+     */
     private String             mResourceType;
 
     public SdkResourceEntity() {
@@ -50,101 +70,77 @@ public class SdkResourceEntity {
         this.mResourceType = SdkResourceEntity.RESOURCE_TYPE_DK;
     }
 
-    /**
-     * »ñÈ¡×ÊÔ´ÀàĞÍ
-     * 
-     * @return ×ÊÔ´ÀàĞÍ
-     * @see me.gerry.sdkpackage.domain.SdkResourceEntity#RESOURCE_TYPE_DK
-     * @see me.gerry.sdkpackage.domain.SdkResourceEntity#RESOURCE_TYPE_SDKPLATFORM
-     * @see me.gerry.sdkpackage.domain.SdkResourceEntity#RESOURCE_TYPE_SDKSAMPLE
-     * @see me.gerry.sdkpackage.domain.SdkResourceEntity#RESOURCE_TYPE_BUILDTOOL
-     * @see me.gerry.sdkpackage.domain.SdkResourceEntity#RESOURCE_TYPE_PLATFORMTOOL
-     * @see me.gerry.sdkpackage.domain.SdkResourceEntity#RESOURCE_TYPE_TOOL
-     * @see me.gerry.sdkpackage.domain.SdkResourceEntity#RESOURCE_TYPE_DOC
-     * @see me.gerry.sdkpackage.domain.SdkResourceEntity#RESOURCE_TYPE_SDKSOURCE
+    /* (non-Javadoc)
+     * @see me.gerry.sdkpackage.domain.SdkResource#getResourceType()
      */
+    @Override
     public String getResourceType() {
         return this.mResourceType;
     }
 
-    /**
-     * ÉèÖÃ×ÊÔ´ÀàĞÍ
-     * 
-     * @param resourceType
-     *            ×ÊÔ´ÀàĞÍ
-     * @see me.gerry.sdkpackage.domain.SdkResourceEntity#RESOURCE_TYPE_DK
-     * @see me.gerry.sdkpackage.domain.SdkResourceEntity#RESOURCE_TYPE_SDKPLATFORM
-     * @see me.gerry.sdkpackage.domain.SdkResourceEntity#RESOURCE_TYPE_SDKSAMPLE
-     * @see me.gerry.sdkpackage.domain.SdkResourceEntity#RESOURCE_TYPE_BUILDTOOL
-     * @see me.gerry.sdkpackage.domain.SdkResourceEntity#RESOURCE_TYPE_PLATFORMTOOL
-     * @see me.gerry.sdkpackage.domain.SdkResourceEntity#RESOURCE_TYPE_TOOL
-     * @see me.gerry.sdkpackage.domain.SdkResourceEntity#RESOURCE_TYPE_DOC
-     * @see me.gerry.sdkpackage.domain.SdkResourceEntity#RESOURCE_TYPE_SDKSOURCE
+    /* (non-Javadoc)
+     * @see me.gerry.sdkpackage.domain.SdkResource#setResourceType(java.lang.String)
      */
+    @Override
     public void setResourceType(String resourceType) {
         this.mResourceType = resourceType;
     }
 
-    /**
-     * »ñÈ¡¸Ã×ÊÔ´µÄ°æ±¾
-     * 
-     * @return ±íÊ¾¸Ã×ÊÔ´°æ±¾µÄ×Ö·û´®£¬Èç03
+    /* (non-Javadoc)
+     * @see me.gerry.sdkpackage.domain.SdkResource#getRevision()
      */
+    @Override
     public String getRevision() {
         return this.mRevision;
     }
 
-    /**
-     * ÉèÖÃ¸Ã×ÊÔ´µÄ°æ±¾
-     * 
-     * @param revision
-     *            ±íÊ¾¸Ã×ÊÔ´°æ±¾µÄ×Ö·û´®£¬Èç03
+    /* (non-Javadoc)
+     * @see me.gerry.sdkpackage.domain.SdkResource#setRevision(java.lang.String)
      */
+    @Override
     public void setRevision(String revision) {
         this.mRevision = revision;
     }
 
-    /**
-     * ÅĞ¶Ï¸Ã×ÊÔ´ÊÇ·ñÒÑ¾­¹ıÊ±¡£
-     * 
-     * @return true ÒÑ¾­¹ıÊ±£»false Ã»ÓĞ¹ıÊ±¡£
+    /* (non-Javadoc)
+     * @see me.gerry.sdkpackage.domain.SdkResource#isObsolete()
      */
+    @Override
     public boolean isObsolete() {
         return this.mIsObsolete;
     }
 
-    /**
-     * ÉèÖÃ¸Ã×ÊÔ´µÄ¹ıÊ±ĞÅÏ¢¡£
-     * 
-     * @param obsolete
-     *            true ÒÑ¾­¹ıÊ±£»false Ã»ÓĞ¹ıÊ±¡£
+    /* (non-Javadoc)
+     * @see me.gerry.sdkpackage.domain.SdkResource#setObsolete(boolean)
      */
+    @Override
     public void setObsolete(boolean obsolete) {
         this.mIsObsolete = obsolete;
     }
 
-    /**
-     * Ìí¼ÓÒ»¸ö¸Ã×ÊÔ´µÄ´æ´¢ĞÅÏ¢¡£
-     * 
-     * @param arc
-     *            °üº¬ÁËÒ»Ğ©´æ´¢Î»ÖÃµÈÏà¹ØĞÅÏ¢¡£
+    /* (non-Javadoc)
+     * @see me.gerry.sdkpackage.domain.SdkResource#addArchive(me.gerry.sdkpackage.domain.Archive)
      */
+    @Override
     public void addArchive(Archive arc) {
         this.mArchives.add(arc);
     }
 
-    /**
-     * »ñÈ¡¸Ã×ÊÔ´´æ´¢ĞÅÏ¢µÄ¼¯ºÏ¡£
-     * 
-     * @return ¸Ã×ÊÔ´´æ´¢ĞÅÏ¢µÄ¼¯ºÏ¡£
+    /* (non-Javadoc)
+     * @see me.gerry.sdkpackage.domain.SdkResource#getArchives()
      */
-    public List<Archive> archiveList() {
+    @Override
+    public List<Archive> getArchives() {
         return this.mArchives;
     }
 
-    public void printArchives() {
+    /* (non-Javadoc)
+     * @see me.gerry.sdkpackage.domain.SdkResource#printArchives()
+     */
+    @Override
+    public void printArchives(LogPrinter printer) {
         for (Archive archive : mArchives) {
-            System.out.println(archive.toString());
+            printer.println(archive.toString());
         }
     }
 }

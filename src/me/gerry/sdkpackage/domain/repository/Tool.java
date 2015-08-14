@@ -1,7 +1,11 @@
 package me.gerry.sdkpackage.domain.repository;
 
 import me.gerry.sdkpackage.domain.SdkResourceEntity;
-
+/**
+ * Tools 下的 Android SDK Tools
+ * @author Gerry
+ *
+ */
 public class Tool extends SdkResourceEntity {
 
     public Tool() {

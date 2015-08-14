@@ -1,8 +1,8 @@
 package me.gerry.sdkpackage.domain.repository;
 
-import me.gerry.sdkpackage.domain.AndroidPlatformResource;
+import me.gerry.sdkpackage.domain.AndroidPlatformResourceEntity;
 
-public class SdkSource extends AndroidPlatformResource {
+public class SdkSource extends AndroidPlatformResourceEntity {
 
     public SdkSource() {
         super();

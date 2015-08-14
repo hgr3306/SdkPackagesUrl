@@ -1,5 +1,9 @@
 package me.gerry.sdkpackage.domain.repository;
-
+/**
+ * https://dl.google.com/android/repository/repository-xx.xml中相关元素的元素名。
+ * @author Gerry
+ *
+ */
 public class RepositoryElement {
 
     public static final String PLATFORM      = "platform";

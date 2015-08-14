@@ -1,14 +1,44 @@
 package me.gerry.sdkpackage.domain;
 
+/**
+ * SDK资源压缩包的相关信息
+ * 
+ * @author Gerry
+ *
+ */
 public class Archive {
+    /**
+     * 常量值，表明该资源适用于任何操作系统。
+     */
     public static final String HOSTOS_ANYOS   = "anyOS";
+    /**
+     * 常量值，表明该资源适用于windows系统。
+     */
     public static final String HOSTOS_WINDOWS = "windows";
+    /**
+     * 常量值，表明该资源适用于linux系统。
+     */
     public static final String HOSTOS_LINUX   = "linux";
+    /**
+     * 常量值，表明该资源适用于macosx系统。
+     */
     public static final String HOSTOS_MACOSX  = "macosx";
 
+    /**
+     * 资源大小。
+     */
     private long               mSize;
+    /**
+     * 校验码对象。
+     */
     private Checksum           mChecksum;
+    /**
+     * 资源下载地址。
+     */
     private String             mUrl;
+    /**
+     * 该资源适用的操作系统类型。
+     */
     private String             hostOS;
 
     public Archive() {
@@ -62,15 +92,30 @@ public class Archive {
     public String toString() {
         return "Archive:\n"
                 + "\tURL: " + getUrl() + "\n"
-                + "\tSize: " + ((getSize() * 1.0) / 1024 / 1024) + "MB\n"
+                + "\tSize: " + ((getSize() * 1.0) / 1024 / 1024) + " MB\n"
                 + "\t" + getChecksumType() + ": " + getChecksumValue() + "\n"
                 + "\tOS: " + getHostOS() + "\n";
     }
 
+    /**
+     * 资源的校验和对象
+     * 
+     * @author Gerry
+     *
+     */
     class Checksum {
+        /**
+         * 校验类型是sha1
+         */
         public static final String TYPE_SHA1 = "sha1";
 
+        /**
+         * 资源的校验类型。
+         */
         private String             type;
+        /**
+         * 资源的校验值。
+         */
         private String             value;
 
         public Checksum() {

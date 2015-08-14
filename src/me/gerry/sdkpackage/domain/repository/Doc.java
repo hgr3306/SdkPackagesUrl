@@ -1,8 +1,12 @@
 package me.gerry.sdkpackage.domain.repository;
 
-import me.gerry.sdkpackage.domain.AndroidPlatformResource;
-
-public class Doc extends AndroidPlatformResource {
+import me.gerry.sdkpackage.domain.AndroidPlatformResourceEntity;
+/**
+ * JAVA docs
+ * @author Gerry
+ *
+ */
+public class Doc extends AndroidPlatformResourceEntity {
 
     public Doc() {
         super();

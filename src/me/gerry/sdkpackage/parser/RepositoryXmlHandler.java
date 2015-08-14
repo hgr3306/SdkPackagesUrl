@@ -1,9 +1,11 @@
 package me.gerry.sdkpackage.parser;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 import me.gerry.sdkpackage.domain.AndroidPlatformResource;
+import me.gerry.sdkpackage.domain.AndroidPlatformResourceEntity;
 import me.gerry.sdkpackage.domain.Archive;
 import me.gerry.sdkpackage.domain.SdkResourceEntity;
 import me.gerry.sdkpackage.domain.repository.BuildTool;
@@ -14,23 +16,41 @@ import me.gerry.sdkpackage.domain.repository.SdkPlatform;
 import me.gerry.sdkpackage.domain.repository.SdkSample;
 import me.gerry.sdkpackage.domain.repository.SdkSource;
 import me.gerry.sdkpackage.domain.repository.Tool;
+import me.gerry.sdkpackage.util.LogPrinter;
 import me.gerry.sdkpackage.util.XmlElementPool;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
-
+/**
+ * 对https://dl.google.com/android/repository/repository-xx.xml 的解析处理。
+ * @author Gerry
+ *
+ */
 public class RepositoryXmlHandler extends DefaultHandler {
-
+    /**
+     * 是否开始接受文本元素内容。
+     */
     private boolean                 mReceiveCharacter;
+    /**
+     * 操作文本元素内容。
+     */
     private StringBuffer            mStrBuf;
+    /**
+     * 文本内容。
+     */
     private String                  mCharacter;
 
     private List<SdkResourceEntity> mResources;
     private SdkResourceEntity       mResource;
     private XmlElementPool          mElements;
     private Archive                 mArchive;
+    
+    /**
+     * 日志输出。
+     */
+    private LogPrinter mLogger;
 
     public RepositoryXmlHandler() {
         super();
@@ -38,6 +58,11 @@ public class RepositoryXmlHandler extends DefaultHandler {
         this.mStrBuf = new StringBuffer();
         this.mCharacter = "";
         this.mElements = new XmlElementPool();
+        try {
+            this.mLogger = new LogPrinter("src/me/gerry/sdkpackage/logs/repository.txt");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -55,13 +80,14 @@ public class RepositoryXmlHandler extends DefaultHandler {
 
     @Override
     public void startDocument() throws SAXException {
-        System.out.println("��ʼ����XML�ļ�----->");
+        this.mLogger.println("开始解析XML文件----->");
         mResources = new ArrayList<SdkResourceEntity>();
     }
 
     @Override
     public void endDocument() throws SAXException {
-        System.out.println("<-------��������");
+        this.mLogger.println("<-------解析结束");
+        this.mLogger.close();
     }
 
     @Override
@@ -73,43 +99,43 @@ public class RepositoryXmlHandler extends DefaultHandler {
             switch (localName) {
 
             case RepositoryElement.PLATFORM:
-                System.out.println("�ҵ� "
+                this.mLogger.println("找到 "
                         + SdkResourceEntity.RESOURCE_TYPE_SDKPLATFORM + " :");
                 mResource = new SdkPlatform();
                 break;
 
             case RepositoryElement.SAMPLE:
-                System.out.println("�ҵ� "
+                this.mLogger.println("找到 "
                         + SdkResourceEntity.RESOURCE_TYPE_SDKSAMPLE + " :");
                 mResource = new SdkSample();
                 break;
 
             case RepositoryElement.PLATFORM_TOOL:
-                System.out.println("�ҵ� "
+                this.mLogger.println("找到 "
                         + SdkResourceEntity.RESOURCE_TYPE_PLATFORMTOOL + " :");
                 mResource = new PlatformTool();
                 break;
 
             case RepositoryElement.BUILD_TOOL:
-                System.out.println("�ҵ� "
+                this.mLogger.println("找到 "
                         + SdkResourceEntity.RESOURCE_TYPE_BUILDTOOL + " :");
                 mResource = new BuildTool();
                 break;
 
             case RepositoryElement.DOC:
-                System.out.println("�ҵ� " + SdkResourceEntity.RESOURCE_TYPE_DOC
+                this.mLogger.println("找到 " + SdkResourceEntity.RESOURCE_TYPE_DOC
                         + " :");
                 mResource = new Doc();
                 break;
 
             case RepositoryElement.TOOL:
-                System.out.println("�ҵ� " + SdkResourceEntity.RESOURCE_TYPE_TOOL
+                this.mLogger.println("找到 " + SdkResourceEntity.RESOURCE_TYPE_TOOL
                         + " :");
                 mResource = new Tool();
                 break;
 
             case RepositoryElement.SOURCE:
-                System.out.println("�ҵ� "
+                this.mLogger.println("找到 "
                         + SdkResourceEntity.RESOURCE_TYPE_SDKSOURCE + " :");
                 mResource = new SdkSource();
                 break;
@@ -201,8 +227,8 @@ public class RepositoryXmlHandler extends DefaultHandler {
             case RepositoryElement.DOC:
             case RepositoryElement.TOOL:
             case RepositoryElement.SOURCE:
-                System.out.println("    " + mResource.toString());
-                mResource.printArchives();
+                this.mLogger.println("    " + mResource.toString());
+                mResource.printArchives(this.mLogger);
                 mResources.add(mResource);
                 break;
 
@@ -226,7 +252,7 @@ public class RepositoryXmlHandler extends DefaultHandler {
                 mCharacter = mStrBuf.toString();
                 mStrBuf.setLength(0);
 
-                if (mResource instanceof AndroidPlatformResource) {
+                if (mResource instanceof AndroidPlatformResourceEntity) {
                     AndroidPlatformResource ap = (AndroidPlatformResource) mResource;
                     ap.setCodeName(mCharacter);
                 }
@@ -237,7 +263,7 @@ public class RepositoryXmlHandler extends DefaultHandler {
                 mCharacter = mStrBuf.toString();
                 mStrBuf.setLength(0);
 
-                if (mResource instanceof AndroidPlatformResource) {
+                if (mResource instanceof AndroidPlatformResourceEntity) {
                     AndroidPlatformResource ap = (AndroidPlatformResource) mResource;
                     ap.setApiLevel(mCharacter);
                 }
@@ -356,7 +382,7 @@ public class RepositoryXmlHandler extends DefaultHandler {
 
     @Override
     public void error(SAXParseException e) throws SAXException {
-        // TODO Auto-generated method stub
+        this.mLogger.close();
         super.error(e);
     }
 

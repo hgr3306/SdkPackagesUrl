@@ -1,8 +1,12 @@
 package me.gerry.sdkpackage.domain.repository;
 
-import me.gerry.sdkpackage.domain.AndroidPlatformResource;
-
-public class SdkSample extends AndroidPlatformResource {
+import me.gerry.sdkpackage.domain.AndroidPlatformResourceEntity;
+/**
+ * Android x.x.x (APIxx) ä¸‹çš„ Samples for SDK
+ * @author Gerry
+ *
+ */
+public class SdkSample extends AndroidPlatformResourceEntity {
 
     private String mDescription;
 
@@ -13,19 +17,19 @@ public class SdkSample extends AndroidPlatformResource {
     }
 
     /**
-     * »ñÈ¡¶Ô¸Ã×ÊÔ´µÄÃèÊö
+     * è·å–å¯¹è¯¥èµ„æºçš„æè¿°
      * 
-     * @return ÃèÊöĞÅÏ¢
+     * @return æè¿°ä¿¡æ¯
      */
     public String getDescription() {
         return this.mDescription;
     }
 
     /**
-     * ¶Ô¸Ã×ÊÔ´½øĞĞÃèÊö
+     * å¯¹è¯¥èµ„æºè¿›è¡Œæè¿°
      * 
      * @param description
-     *            ÃèÊöĞÅÏ¢
+     *            æè¿°ä¿¡æ¯
      */
     public void setDescription(String description) {
         this.mDescription = description;

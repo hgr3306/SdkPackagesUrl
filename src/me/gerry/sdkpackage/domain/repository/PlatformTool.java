@@ -3,7 +3,7 @@ package me.gerry.sdkpackage.domain.repository;
 import me.gerry.sdkpackage.domain.SdkResourceEntity;
 
 /**
- * SDK platform tools 资源信息
+ * Tools 涓嬬殑 Android SDK platform-tools
  * 
  * @author Guorui
  *

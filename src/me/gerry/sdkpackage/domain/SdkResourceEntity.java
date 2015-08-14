@@ -45,6 +45,11 @@ public class SdkResourceEntity implements SdkResource {
      * Sources for Android SDK
      */
     public static final String RESOURCE_TYPE_SDKSOURCE    = "Sources for Android SDK";
+    
+    /**
+     * Sources for Android SDK
+     */
+    public static final String RESOURCE_TYPE_SYSTEMIMAGE    = "System Image";
 
     /**
      * SDK资源的版本号。

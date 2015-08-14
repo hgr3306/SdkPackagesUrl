@@ -7,15 +7,11 @@ import java.util.List;
 import me.gerry.sdkpackage.domain.AndroidPlatformResource;
 import me.gerry.sdkpackage.domain.AndroidPlatformResourceEntity;
 import me.gerry.sdkpackage.domain.Archive;
-import me.gerry.sdkpackage.domain.XmlElement;
+import me.gerry.sdkpackage.domain.SdkResource;
 import me.gerry.sdkpackage.domain.SdkResourceEntity;
-import me.gerry.sdkpackage.domain.repository.BuildTool;
-import me.gerry.sdkpackage.domain.repository.Doc;
-import me.gerry.sdkpackage.domain.repository.PlatformTool;
+import me.gerry.sdkpackage.domain.XmlElement;
+import me.gerry.sdkpackage.domain.addon.SystemImage;
 import me.gerry.sdkpackage.domain.repository.SdkPlatform;
-import me.gerry.sdkpackage.domain.repository.SdkSample;
-import me.gerry.sdkpackage.domain.repository.SdkSource;
-import me.gerry.sdkpackage.domain.repository.Tool;
 import me.gerry.sdkpackage.util.LogPrinter;
 import me.gerry.sdkpackage.util.XmlElementPool;
 
@@ -23,43 +19,45 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
+
 /**
  * 对https://dl.google.com/android/repository/repository-xx.xml 的解析处理。
+ * 
  * @author Gerry
  *
  */
-public class RepositoryXmlHandler extends DefaultHandler {
+public class AddonsXmlHandler extends DefaultHandler {
     /**
      * 是否开始接受文本元素内容。
      */
-    private boolean                 mReceiveCharacter;
+    private boolean           mReceiveCharacter;
     /**
      * 操作文本元素内容。
      */
-    private StringBuffer            mStrBuf;
+    private StringBuffer      mStrBuf;
     /**
      * 文本内容。
      */
-    private String                  mCharacter;
+    private String            mCharacter;
 
-    private List<SdkResourceEntity> mResources;
-    private SdkResourceEntity       mResource;
-    private XmlElementPool          mElements;
-    private Archive                 mArchive;
-    
+    private List<SdkResource> mResources;
+    private SdkResource       mResource;
+    private XmlElementPool    mElements;
+    private Archive           mArchive;
+
     /**
      * 日志输出。
      */
-    private LogPrinter mLogger;
+    private LogPrinter        mLogger;
 
-    public RepositoryXmlHandler() {
+    public AddonsXmlHandler() {
         super();
         this.mReceiveCharacter = false;
         this.mStrBuf = new StringBuffer();
         this.mCharacter = "";
         this.mElements = new XmlElementPool();
         try {
-            this.mLogger = new LogPrinter("src/me/gerry/sdkpackage/logs/repository.txt");
+            this.mLogger = new LogPrinter("src/me/gerry/sdkpackage/logs/addons.txt");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -81,7 +79,7 @@ public class RepositoryXmlHandler extends DefaultHandler {
     @Override
     public void startDocument() throws SAXException {
         this.mLogger.println("开始解析XML文件----->");
-        mResources = new ArrayList<SdkResourceEntity>();
+        mResources = new ArrayList<SdkResource>();
     }
 
     @Override
@@ -98,50 +96,10 @@ public class RepositoryXmlHandler extends DefaultHandler {
 
             switch (localName) {
 
-            case XmlElement.PLATFORM:
+            case XmlElement.SYSTEMIMAGE:
                 this.mLogger.println("找到 "
-                        + SdkResourceEntity.RESOURCE_TYPE_SDKPLATFORM + " :");
-                mResource = new SdkPlatform();
-                break;
-
-            case XmlElement.SAMPLE:
-                this.mLogger.println("找到 "
-                        + SdkResourceEntity.RESOURCE_TYPE_SDKSAMPLE + " :");
-                mResource = new SdkSample();
-                break;
-
-            case XmlElement.PLATFORM_TOOL:
-                this.mLogger.println("找到 "
-                        + SdkResourceEntity.RESOURCE_TYPE_PLATFORMTOOL + " :");
-                mResource = new PlatformTool();
-                break;
-
-            case XmlElement.BUILD_TOOL:
-                this.mLogger.println("找到 "
-                        + SdkResourceEntity.RESOURCE_TYPE_BUILDTOOL + " :");
-                mResource = new BuildTool();
-                break;
-
-            case XmlElement.DOC:
-                this.mLogger.println("找到 " + SdkResourceEntity.RESOURCE_TYPE_DOC
-                        + " :");
-                mResource = new Doc();
-                break;
-
-            case XmlElement.TOOL:
-                this.mLogger.println("找到 " + SdkResourceEntity.RESOURCE_TYPE_TOOL
-                        + " :");
-                mResource = new Tool();
-                break;
-
-            case XmlElement.SOURCE:
-                this.mLogger.println("找到 "
-                        + SdkResourceEntity.RESOURCE_TYPE_SDKSOURCE + " :");
-                mResource = new SdkSource();
-                break;
-
-            case XmlElement.VERSION:
-                this.mReceiveCharacter = true;
+                        + SdkResourceEntity.RESOURCE_TYPE_SYSTEMIMAGE + " :");
+                mResource = new SystemImage();
                 break;
 
             case XmlElement.CODENAME:
@@ -149,6 +107,10 @@ public class RepositoryXmlHandler extends DefaultHandler {
                 break;
 
             case XmlElement.API_LEVEL:
+                this.mReceiveCharacter = true;
+                break;
+                
+            case XmlElement.ABI:
                 this.mReceiveCharacter = true;
                 break;
 
@@ -220,31 +182,10 @@ public class RepositoryXmlHandler extends DefaultHandler {
 
             switch (localName) {
 
-            case XmlElement.PLATFORM:
-            case XmlElement.SAMPLE:
-            case XmlElement.PLATFORM_TOOL:
-            case XmlElement.BUILD_TOOL:
-            case XmlElement.DOC:
-            case XmlElement.TOOL:
-            case XmlElement.SOURCE:
+            case XmlElement.SYSTEMIMAGE:
                 this.mLogger.println("    " + mResource.toString());
                 mResource.printArchives(this.mLogger);
                 mResources.add(mResource);
-                break;
-
-            case XmlElement.VERSION:
-                this.mReceiveCharacter = false;
-                mCharacter = mStrBuf.toString();
-                mStrBuf.setLength(0);
-
-                if (XmlElement.PLATFORM.equals(mElements
-                        .previousElement())) {
-                    if (SdkResourceEntity.RESOURCE_TYPE_SDKPLATFORM.equals(mResource
-                            .getResourceType())) {
-                        SdkPlatform sp = (SdkPlatform) mResource;
-                        sp.setVersion(mCharacter);
-                    }
-                }
                 break;
 
             case XmlElement.CODENAME:
@@ -266,6 +207,17 @@ public class RepositoryXmlHandler extends DefaultHandler {
                 if (mResource instanceof AndroidPlatformResourceEntity) {
                     AndroidPlatformResource ap = (AndroidPlatformResource) mResource;
                     ap.setApiLevel(mCharacter);
+                }
+                break;
+                
+            case XmlElement.ABI:
+                this.mReceiveCharacter = false;
+                mCharacter = mStrBuf.toString();
+                mStrBuf.setLength(0);
+                
+                if (mResource instanceof SystemImage) {
+                    SystemImage ap = (SystemImage) mResource;
+                    ap.setAbi(mCharacter);
                 }
                 break;
 
@@ -342,9 +294,11 @@ public class RepositoryXmlHandler extends DefaultHandler {
 
             case XmlElement.URL:
                 this.mReceiveCharacter = false;
-                if (-1 == mStrBuf.indexOf("https://dl-ssl.google.com/android/repository/")) {
-                    mStrBuf.insert(0,
-                            "https://dl-ssl.google.com/android/repository/");
+                if (-1 == mStrBuf.indexOf("https://")) {
+                    if (-1 == mStrBuf.indexOf("https://dl-ssl.google.com/android/repository/")) {
+                        mStrBuf.insert(0,
+                                "https://dl-ssl.google.com/android/repository/");
+                    }
                 }
                 mCharacter = mStrBuf.toString();
                 mStrBuf.setLength(0);

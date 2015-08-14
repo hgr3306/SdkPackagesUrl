@@ -1,10 +1,12 @@
-package me.gerry.sdkpackage.domain.repository;
+package me.gerry.sdkpackage.domain;
+
 /**
- * https://dl.google.com/android/repository/repository-xx.xml中相关元素的元素名。
+ * 解析XML过程中相关元素的元素名。
+ * 
  * @author Gerry
  *
  */
-public class RepositoryElement {
+public class XmlElement {
 
     public static final String PLATFORM      = "platform";
     public static final String VERSION       = "version";
@@ -27,5 +29,8 @@ public class RepositoryElement {
     public static final String TOOL          = "tool";
     public static final String SOURCE        = "source";
     public static final String CODENAME      = "codename";
+
+    public static final String SYSTEMIMAGE   = "system-image";
+    public static final String ABI           = "abi";
 
 }

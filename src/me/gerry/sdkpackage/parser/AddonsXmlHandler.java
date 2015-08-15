@@ -295,9 +295,14 @@ public class AddonsXmlHandler extends DefaultHandler {
             case XmlElement.URL:
                 this.mReceiveCharacter = false;
                 if (-1 == mStrBuf.indexOf("https://")) {
+//                    if (-1 == mStrBuf.indexOf("https://dl-ssl.google.com/android/repository/")) {
+//                        mStrBuf.insert(0,
+//                                "https://dl-ssl.google.com/android/repository/");
+//                    }
+                    //最新版镜像的下载目录
                     if (-1 == mStrBuf.indexOf("https://dl-ssl.google.com/android/repository/")) {
                         mStrBuf.insert(0,
-                                "https://dl-ssl.google.com/android/repository/");
+                                "https://dl-ssl.google.com/android/repository/sys-img/android/");
                     }
                 }
                 mCharacter = mStrBuf.toString();

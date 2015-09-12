@@ -18,6 +18,10 @@ public class SdkResourceEntity implements SdkResource {
      */
     public static final String RESOURCE_TYPE_DK           = "Unknown Resource Type";
     /**
+     * Android NDK
+     */
+    public static final String RESOURCE_TYPE_NDK  = "Android NDK";
+    /**
      * SDK Platform
      */
     public static final String RESOURCE_TYPE_SDKPLATFORM  = "SDK Platform";

@@ -64,22 +64,6 @@ Archive:
 	OS: anyOS
 
 找到 System Image :
-    armeabi-v7a: System Image: MNC, API 22, revision 2
-Archive:
-	URL: https://dl-ssl.google.com/android/repository/sys-img/android/sysimg_arm-MNC_r02.zip
-	Size: 300.11920166015625 MB
-	sha1: de0b7449c026abe463211b58ca00ad19e584097a
-	OS: anyOS
-
-找到 System Image :
-    arm64-v8a: System Image: MNC, API 22, revision 2
-Archive:
-	URL: https://dl-ssl.google.com/android/repository/sys-img/android/sysimg_arm64-MNC_r02.zip
-	Size: 421.38876819610596 MB
-	sha1: f33245eeb6b634f186e32e7ba7f25e0b99211c26
-	OS: anyOS
-
-找到 System Image :
     x86: System Image: API 10, revision 3
 Archive:
 	URL: https://dl-ssl.google.com/android/repository/sys-img/android/sysimg_x86-10_r03.zip
@@ -160,22 +144,6 @@ Archive:
 	OS: anyOS
 
 找到 System Image :
-    x86: System Image: MNC, API 22, revision 2
-Archive:
-	URL: https://dl-ssl.google.com/android/repository/sys-img/android/sysimg_x86-MNC_r02.zip
-	Size: 315.77473068237305 MB
-	sha1: 2f2ab2676f9d06a847b9312d16e2afef595cac7a
-	OS: anyOS
-
-找到 System Image :
-    x86_64: System Image: MNC, API 22, revision 2
-Archive:
-	URL: https://dl-ssl.google.com/android/repository/sys-img/android/sysimg_x86_64-MNC_r02.zip
-	Size: 437.06214427948 MB
-	sha1: d4452559950317b2c09891cf367fd1f1ef445ef2
-	OS: anyOS
-
-找到 System Image :
     mips: System Image: API 15, revision 1
 Archive:
 	URL: https://dl-ssl.google.com/android/repository/sys-img/android/sysimg_mips-15_r01.zip
@@ -200,11 +168,27 @@ Archive:
 	OS: anyOS
 
 找到 System Image :
-    mips: System Image: MNC, API 22, revision 2
+    x86: System Image: API 23, revision 3
 Archive:
-	URL: https://dl-ssl.google.com/android/repository/sys-img/android/sysimg_mips-MNC_r02.zip
-	Size: 316.2253131866455 MB
-	sha1: 787874a613f36e85b355e564841550902749e0dc
+	URL: https://dl-ssl.google.com/android/repository/sys-img/android/sysimg_x86-23_r03.zip
+	Size: 229.73708724975586 MB
+	sha1: 3cb2e8efb575c35a558b091eac7e1bc5843f5f12
+	OS: anyOS
+
+找到 System Image :
+    x86_64: System Image: API 23, revision 3
+Archive:
+	URL: https://dl-ssl.google.com/android/repository/sys-img/android/sysimg_x86_64-23_r03.zip
+	Size: 322.2438631057739 MB
+	sha1: 226510856431bc4a73690540a8d7cbad974bedd3
+	OS: anyOS
+
+找到 System Image :
+    armeabi-v7a: System Image: API 23, revision 3
+Archive:
+	URL: https://dl-ssl.google.com/android/repository/sys-img/android/sysimg_arm-23_r03.zip
+	Size: 216.36930465698242 MB
+	sha1: 7bb8768ec4333500192fd9627d4234f505fa98dc
 	OS: anyOS
 
 <-------解析结束

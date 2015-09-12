@@ -19,6 +19,7 @@ public class XmlElement {
     public static final String CHECKSUM      = "checksum";
     public static final String URL           = "url";
     public static final String HOST_OS       = "host-os";
+    public static final String HOST_BITS     = "host-bits";
     public static final String SAMPLE        = "sample";
     public static final String MAJOR         = "major";
     public static final String MINOR         = "minor";
@@ -32,5 +33,7 @@ public class XmlElement {
 
     public static final String SYSTEMIMAGE   = "system-image";
     public static final String ABI           = "abi";
+
+    public static final String NDK           = "ndk";
 
 }

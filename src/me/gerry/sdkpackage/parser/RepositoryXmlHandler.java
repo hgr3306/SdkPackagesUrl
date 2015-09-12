@@ -7,10 +7,11 @@ import java.util.List;
 import me.gerry.sdkpackage.domain.AndroidPlatformResource;
 import me.gerry.sdkpackage.domain.AndroidPlatformResourceEntity;
 import me.gerry.sdkpackage.domain.Archive;
-import me.gerry.sdkpackage.domain.XmlElement;
 import me.gerry.sdkpackage.domain.SdkResourceEntity;
+import me.gerry.sdkpackage.domain.XmlElement;
 import me.gerry.sdkpackage.domain.repository.BuildTool;
 import me.gerry.sdkpackage.domain.repository.Doc;
+import me.gerry.sdkpackage.domain.repository.Ndk;
 import me.gerry.sdkpackage.domain.repository.PlatformTool;
 import me.gerry.sdkpackage.domain.repository.SdkPlatform;
 import me.gerry.sdkpackage.domain.repository.SdkSample;
@@ -98,6 +99,12 @@ public class RepositoryXmlHandler extends DefaultHandler {
 
             switch (localName) {
 
+            case XmlElement.NDK:
+                this.mLogger.println("找到 "
+                        + SdkResourceEntity.RESOURCE_TYPE_NDK + " :");
+                mResource = new Ndk();
+                break;
+                
             case XmlElement.PLATFORM:
                 this.mLogger.println("找到 "
                         + SdkResourceEntity.RESOURCE_TYPE_SDKPLATFORM + " :");
@@ -204,6 +211,13 @@ public class RepositoryXmlHandler extends DefaultHandler {
                     this.mReceiveCharacter = true;
                 }
                 break;
+                
+            case XmlElement.HOST_BITS:
+                if (XmlElement.ARCHIVE
+                        .equals(mElements.previousElement())) {
+                    this.mReceiveCharacter = true;
+                }
+                break;
 
             }
 
@@ -220,6 +234,7 @@ public class RepositoryXmlHandler extends DefaultHandler {
 
             switch (localName) {
 
+            case XmlElement.NDK:
             case XmlElement.PLATFORM:
             case XmlElement.SAMPLE:
             case XmlElement.PLATFORM_TOOL:
@@ -373,6 +388,17 @@ public class RepositoryXmlHandler extends DefaultHandler {
                     if (0 == "linux".compareToIgnoreCase(mCharacter)) {
                         mArchive.setHostOS(Archive.HOSTOS_LINUX);
                     }
+                }
+                break;
+                
+            case XmlElement.HOST_BITS:
+                this.mReceiveCharacter = false;
+                mCharacter = mStrBuf.toString();
+                mStrBuf.setLength(0);
+                
+                if (XmlElement.ARCHIVE
+                        .equals(mElements.previousElement())) {
+                        mArchive.setHostBits(mCharacter);
                 }
                 break;
 

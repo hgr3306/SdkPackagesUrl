@@ -40,12 +40,17 @@ public class Archive {
      * 该资源适用的操作系统类型。
      */
     private String             hostOS;
+    /**
+     * 该资源适用的多少位的操作系统。
+     */
+    private String             hostBits;
 
     public Archive() {
         this.mSize = 0;
         this.mChecksum = new Checksum();
         this.mUrl = "";
         this.hostOS = Archive.HOSTOS_ANYOS;
+        this.hostBits = "any";
     }
 
     public long getSize() {
@@ -88,13 +93,22 @@ public class Archive {
         this.hostOS = hostOS;
     }
 
+    public String getHostBits() {
+        return this.hostBits;
+    }
+
+    public void setHostBits(String hostBits) {
+        this.hostBits = hostBits;
+    }
+
     @Override
     public String toString() {
         return "Archive:\n"
                 + "\tURL: " + getUrl() + "\n"
                 + "\tSize: " + ((getSize() * 1.0) / 1024 / 1024) + " MB\n"
                 + "\t" + getChecksumType() + ": " + getChecksumValue() + "\n"
-                + "\tOS: " + getHostOS() + "\n";
+                + "\tOS: " + getHostOS()
+                + " "+("any".equals(hostBits)?"":hostBits)+" bits" +"\n";
     }
 
     /**
